@@ -1,3 +1,4 @@
 # 3-gcp-compute-engine
 
-### 3. Wektor
+### Wylistowanie wszystkich projektów w GCP:
+> gcloud projects list
