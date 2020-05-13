@@ -26,6 +26,62 @@
 
 > gcloud config set compute/region us-central1
 
-#### Tworzenie wirtualnej maszyny
+#### Tworzenie wirtualnej maszyny. Pierwszym parametrem jest nazwa VM oraz dwa atrybuty: typ VM oraz strefa.
+
+> gcloud compute instances create vm1a --machine-type=f1-micro --zone=us-central1-a
+
+#### Tworzenie dysku
+
+> gcloud compute disks create vmdisk1a --size=50GB --zone=us-central1-a
+
+#### Weryfikacja czy dysk został utworzony.
+
+> gcloud compute disks list
+
+#### Podpięcie nowo utworzonego dysku do VM.
+
+> gcloud compute instances attach-disk vm1a --disk=vmdisk1a --zone=us-central1-a
+
+#### Sformatowanie dysku podpiętego do maszyny. W tym celu łączę się z VM poprzez SSH. 
+
+#### Sprawdzam ile mam dysków. Widzę też ID dysków np. "sdb" to ten nowy 50 GB.
+
+> sudo lsblk
+
+#### Komenda do formatowania dysku (gdzie sdb to ID mojego dysku)
+
+> sudo mkfs.ext4 -m 0 -F -E lazy_itable_init=0,lazy_journal_init=0,discard /dev/sdb
+
+#### Stworzenie katalogu "disk2"
+
+> sudo mkdir -p /disk2
+
+#### Zmountowanie
+
+> sudo mount -o discard,defaults /dev/sdb /disk2
+
+#### Nadanie uprawnień do zapisu
+
+> sudo chmod a+w /disk2
+
+#### Wejście do folderu
+
+> cd /disk2
+
+#### Tworzę plik i wchodzę do edytora nano dodając tekst.
+
+> touch file.txt
+> nano file.txt
+
+#### Przeglądam zawartość pliku.
+
+> cat file.txt
+
+#### Wyjście z konsoli VM (SSH).
+
+> exit
+
+
+
 
 
