@@ -104,5 +104,6 @@
 #### Na zakończenie należy pousuwać wszystkie zasoby. W pierwszej kolejności odpinam dyski z VM. 
 
 > gcloud compute instances detach-disk vm1a --disk vmdisk1a --zone=us-central1-a
+
 > gcloud compute instances detach-disk vm1c --disk vmdisk1c --zone=us-central1-c
 
