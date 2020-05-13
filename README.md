@@ -81,7 +81,28 @@
 
 > exit
 
+#### Wykonanie zrzutu dysku.
 
+> gcloud compute disks snapshot vmdisk1a --snapshot-names vmdisk1a-snapshot-1 --zone=us-central1-a
 
+#### Weryfikuję utworzone zrzuty dysku.
 
+> gcloud compute snapshots list
+
+#### Mając zrzut dysku tworzę dysk, a następnie VM w innej strefie. Najpier tworzę VM w innej strefie.
+
+> gcloud compute instances create vm1c --machine-type f1-micro --zone=us-central1-c
+
+#### Utworzenie dysku dla VM na podstawie wcześniej utworzonego zrzutu dysku.
+
+> gcloud compute disks create vmdisk1c --source-snapshot=vmdisk1a-snapshot-1 --zone=us-central1-c
+
+#### Teraz utworzony dysk mogę przenieść do nowej VM.
+
+> gcloud compute instances attach-disk vm1c --disk vmdisk1c --zone=us-central1-c
+
+#### Na zakończenie należy pousuwać wszystkie zasoby. W pierwszej kolejności odpinam dyski z VM. 
+
+> gcloud compute instances detach-disk vm1a --disk vmdisk1a --zone=us-central1-a
+> gcloud compute instances detach-disk vm1c --disk vmdisk1c --zone=us-central1-c
 
