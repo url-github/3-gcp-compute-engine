@@ -119,7 +119,7 @@
 
 > gcloud compute images export --destination-uri gs://example-112358/wpimage.tar.gz --image my-image
 
-## Preemptible instance VM.
+## Preemptible instance VM ( czyli możliwe wywłaszczenie lub usunięcie po 24h; tanie do 80% :) )
 
 Tworzenie za pomocą konsoli:
 
