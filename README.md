@@ -119,6 +119,17 @@
 
 > gcloud compute images export --destination-uri gs://example-112358/wpimage.tar.gz --image my-image
 
+## Preemptible instance VM.
+
+Tworzenie za pomocą konsoli:
+
+> gcloud compute instances create vm-1 --preemptible ( dla VM )
+
+> gcloud container cluster create vm-1 --preemptible ( dla Google Kubernetes )
+
+ 
+
+
 
 
 
