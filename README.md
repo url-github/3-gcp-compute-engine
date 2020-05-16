@@ -119,13 +119,20 @@
 
 > gcloud compute images export --destination-uri gs://example-112358/wpimage.tar.gz --image my-image
 
-## Preemptible instance VM ( czyli możliwe wywłaszczenie lub usunięcie po 24h; tanie do 80% :) )
+## Preemptible instance VM ( czyli możliwe wywłaszczenie lub usunięcie po 24h; do 80% ceny )
 
 Tworzenie za pomocą konsoli:
 
 > gcloud compute instances create vm-1 --preemptible ( dla VM )
 
 > gcloud container cluster create vm-1 --preemptible ( dla Google Kubernetes )
+
+#### Zasymulowanie eventu tak, aby Preemptible VM "vm-1" sie wyłączył:
+
+> gcloud compute instances create vm-1 --preemptible --zone=europe-west4-c ( tworzenie Preemptible VM )
+
+> gcloud compute instances simulate-maintenance-event vm-1 --zone=europe-west4-c
+
 
  
 
