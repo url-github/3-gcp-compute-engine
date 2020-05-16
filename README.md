@@ -107,3 +107,15 @@
 
 > gcloud compute instances detach-disk vm1c --disk vmdisk1c --zone=us-central1-c
 
+## Stworzenie obrazu z istniejącej MV (custom image) oraz eksport do Google Storage
+
+1. Tworzę VM, która będzie bazą do stworzenia obrazu z tej VM.
+2. Następnie tworzę Zasobnik. Pamięć > Przechowywanie danych.
+3. Przed wpisaniem komendy do utworzenia obrazu w konsoli zatrzymuje VM, aby zachować konsystencję danych.
+ 
+> gcloud compute images create my-image --source-disk=instance-1-wp-vm --source-disk-zone=europe-west1-c
+
+
+
+
+
