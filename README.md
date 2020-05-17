@@ -140,11 +140,11 @@ Tworzenie za pomocą konsoli:
 
 #### Migracja VM z jednego regionu do drugiego ( z wykorzystaniem API ):
 
-# 1. Ustawiam no autodelete na dysku ( dysk będzie odporny na usunięcia )
+1. Ustawiam no autodelete na dysku ( dysk będzie odporny na usunięcia )
 
 > gcloud compute instances set-disk-auto-delete wordpress-1-vm --zone us-west3-b --disk wordpress-1-vm --no-auto-delete
 
-# 2. Tworzenie Snapshot dysku
+2. Tworzenie Snapshot dysku
 
 > gcloud compute disks snapshot wordpress-1-vm --snapshot-names backup-myrootsnapshot --zone us-west3-b
 > gcloud compute disks snapshot wordpress-1-vm --snapshot-names myrootsnapshot --zone us-west3-b
