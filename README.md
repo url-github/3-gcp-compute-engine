@@ -167,6 +167,12 @@ Tworzenie za pomocą konsoli:
 
 > gcloud compute disks delete wordpress-1-vm --zone us-west3-b
 
+6. Dodaje do Compute Engine dla firewalla:
+
+> gcloud compute instances add-tags wordpress-1-vm-v2 --tags=wordpress-1-deployment
+
+
+
 
 
  
