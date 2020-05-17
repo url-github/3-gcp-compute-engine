@@ -133,6 +133,9 @@ Tworzenie za pomocą konsoli:
 
 > gcloud compute instances simulate-maintenance-event vm-1 --zone=europe-west4-c
 
+#### Migracja VM z jednego regionu do drugiego:
+
+> gcloud compute instances move example-instance-1 --zone us-central1-b --destination-zone us-central1-f
 
  
 
