@@ -136,6 +136,7 @@ Tworzenie za pomocą konsoli:
 #### Migracja VM z jednej strefy do drugiej ( z wykorzystaniem API ):
 
 > gcloud compute instances move example-instance-1 --zone us-central1-b --destination-zone us-central1-f
+
 > gcloud compute instances move nazwa_instancji --zone europe-west6-a --destination-zone europe-west6-b
 
 #### Migracja VM z jednego regionu do drugiego ( z wykorzystaniem API ):
@@ -147,7 +148,26 @@ Tworzenie za pomocą konsoli:
 2. Tworzenie Snapshot dysku
 
 > gcloud compute disks snapshot wordpress-1-vm --snapshot-names backup-myrootsnapshot --zone us-west3-b
+
 > gcloud compute disks snapshot wordpress-1-vm --snapshot-names myrootsnapshot --zone us-west3-b
+
+3. Tworzę nowy dysk ze Snapshot w nowym regionie
+
+> gcloud compute disks create wordpress-1-vm-v2 --source-snapshot myrootsnapshot --zone europe-west6-b> 
+
+4. Tworzenie instancji VM na podstawie nowo utworzonego dysku w nowym regionie
+
+> gcloud compute instances create wordpress-1-vm-v2 --machine-type n1-standard-4 --zone europe-west6-b --disk name=wordpress-1-vm-v2,boot=yes,mode=rw
+
+5. Usunięcie starych Snapshot oraz VM
+
+> gcloud compute snapshots delete myrootsnapshot
+
+> gcloud compute instances delete wordpress-1-vm --zone us-west3-b
+
+> gcloud compute disks delete wordpress-1-vm --zone us-west3-b
+
+
 
  
 
