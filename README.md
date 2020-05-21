@@ -1,5 +1,9 @@
 # 3-gcp-compute-engine
 
+( notatki z Chmurowisko )
+
+---
+
 #### Wylistowanie wszystkich projektów w GCP.
 > gcloud projects list
 
