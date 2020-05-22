@@ -175,6 +175,18 @@ Tworzenie za pomocą konsoli:
 
 > gcloud compute instances add-tags wordpress-1-vm-v2 --tags=wordpress-1-deployment
 
+#### Zadanie.
+
+Tło: https://cloud.google.com/certification/guides/cloud-architect/casestudy-mountkirkgames-rev2
+
+1. Wybierz odpowiednią strategię migracji w oparciu o dostarczony opis.
+
+Lift and shift 
+
+2. W punktach napisz jak podszedłbyś do tej migracji, które kroki zrealizowałbyś w pierwszej kolejności.
+
+3. Firma wymaga, abyś przygotował demo końcowej architektury i zaprezentował je podczas umówionego spotkania w siedzibie firmy.
+
 
 
 
