@@ -179,13 +179,50 @@ Tworzenie za pomocą konsoli:
 
 Tło: https://cloud.google.com/certification/guides/cloud-architect/casestudy-mountkirkgames-rev2
 
-1. Wybierz odpowiednią strategię migracji w oparciu o dostarczony opis.
+# 1. Wybierz odpowiednią strategię migracji w oparciu o dostarczony opis.
 
 Lift and shift 
 
-2. W punktach napisz jak podszedłbyś do tej migracji, które kroki zrealizowałbyś w pierwszej kolejności.
+# 2. W punktach napisz jak podszedłbyś do tej migracji, które kroki zrealizowałbyś w pierwszej kolejności.
 
-3. Firma wymaga, abyś przygotował demo końcowej architektury i zaprezentował je podczas umówionego spotkania w siedzibie firmy.
+a. Utworzenie obrazu maszyny.
+b. Umieszczenie obrazu w GCP.
+c. Dobranie odpowiedniej wielkości maszyny i utworzenie jej z dostarczonego obrazu.
+d. Uruchomienie środowiska, testowanie, monitorowanie zachowania środowiska oraz aplikacji.
+
+Uwagi do rozwiązania:
+
+- Aby zapewnić hight availability oraz skalowalność (jak wynika z opisu zadania) należałoby wykorzystać Managed instance group, gdzie mamy możliwość utworzenia maszyn w środowisku Multiple zones zapewniającym HA oraz autoskalowalność. Jednak na ten moment nie możemy tego zapewnić ze względu na 'brak wiedzy'. (Google Compute Engine boosts high availability controls).
+- W powyższym rozwiązaniu (Managed instance group + Multiple zones) mając całe rozwiązanie w jednej maszynie (aplikacja + baza) mogą pojawić się problemy z wydajnością oraz konsystencją danych pomiędzy maszynami.
+- Dodatkowo przenosząc rozwiązanie do chmury należałoby rozważyć sprawy licencyjne, czy obecnie używane pozwalają nam na migrację do chmury oraz oczywiście aspekty prawne.
+
+# 3. Firma wymaga, abyś przygotował demo końcowej architektury i zaprezentował je podczas umówionego spotkania w siedzibie firmy.
+
+Utworzenie VM z dostarczonego obrazu
+
+# Utworzenie zmiennych
+bucketName="images-bp"
+bucketLocation="europe-west3"
+imageName="mountkirk-games-image"
+vmName="mountkirk-games-vm"
+vmType="f1-micro"
+vmZone="europe-west1-b"
+
+# Utworzenie bucketa dla obrazu
+gsutil mb -c STANDARD -l $bucketLocation gs://${bucketName}/
+
+# Skopiowanie obrazu do własnego bucketa
+gsutil cp gs://mountkirk-games-image/mountkirk-games.vmdk gs://${bucketName}/mountkirk-games.vmdk
+
+# Import obrazu do własnego repozytorium
+gcloud compute images import $imageName --os=debian-9 --source-file=gs://${bucketName}/mountkirk-games.vmdk
+
+# Utworzenie VM na podstawie obrazu
+gcloud compute instances create $vmName --machine-type=$vmType --zone=$vmZone --image=$imageName --tags=http-server
+
+gsutil mb -c STANDARD -l europe-west3  gs://images-pm
+
+
 
 
 
