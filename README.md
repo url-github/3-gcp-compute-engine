@@ -330,20 +330,25 @@ Kopiowanie obrazu aplikacji do stworzonego bucket
 
 Imprort obrazu do repozytorium obrazow projektu 
 
-> gcloud compute images import mountkirk-test01 \ 
---os=debian-9 \ 
---source-file=gs://pm-week3/mountkirk-games.vmdk 
-
+> gcloud compute images import mountkirk-test01 --os=debian-9 --source-file=gs://pm-week3/mountkirk-games.vmdk 
 
 b) Deployment aplikacji w wybranych regionach na potrzeby PoC. 
-gcloud beta compute instances create vm-mountkirk-01 \ --zone=europe-west6-a --machine-type=n1-standard-1 \ --tags=http-server,https-server --image=mountkirk-test01 
-Kolejne maszyny wg schematu ze zmianą parametru „–zone“ c) Ustawienie firewall dla dostępu http i https. 
-Firewall domyślnie umożliwia dostęp http na podstawie tagu „http-server”. Na potrzeby transmisji szyfrowanej wymagana otwarcie portu, domyślnie dla tagu „https-server”. 
-gcloud compute firewall-rules create default-allow-https \ --direction=INGRESS \ --priority=1000 \ --network=default \ --action=ALLOW \ --rules=tcp:443 \ --source-ranges=0.0.0.0/0 \ --target-tags=https-server 
-d) Instalacja pozostałych usług. 
-5. Podsumowanie. 
-Po przeprowadzeniu PoC na próbce aplikacji okazało się, że zaproponowana metoda migracji Lift And Shift, może się nie sprawdzić. Aplikacja po deploymencie w chmurze wykazywała wysoką degenerację funkcjonalną. 
 
+> gcloud beta compute instances create vm-mountkirk-01 --zone=europe-west6-a --machine-type=n1-standard-1 --tags=http-server,https-server --image=mountkirk-test01 
+
+Kolejne maszyny wg schematu ze zmianą parametru „–zone“ 
+
+c) Ustawienie firewall dla dostępu http i https. 
+
+Firewall domyślnie umożliwia dostęp http na podstawie tagu „http-server”. Na potrzeby transmisji szyfrowanej wymagane otwarcie portu, domyślnie dla tagu „https-server”. 
+
+> gcloud compute firewall-rules create default-allow-https --direction=INGRESS --priority=1000 --network=default --action=ALLOW --rules=tcp:443 --source-ranges=0.0.0.0/0 --target-tags=https-server 
+
+d) Instalacja pozostałych usług. 
+
+#### 5. Podsumowanie. 
+
+Po przeprowadzeniu PoC na próbce aplikacji okazało się, że zaproponowana metoda migracji Lift And Shift, może się nie sprawdzić. Aplikacja po deploymencie w chmurze wykazywała wysoką degenerację funkcjonalną. 
 
 
 
