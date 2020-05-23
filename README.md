@@ -175,7 +175,7 @@ Tworzenie za pomocą konsoli:
 
 > gcloud compute instances add-tags wordpress-1-vm-v2 --tags=wordpress-1-deployment
 
-#### Zadanie.
+#### Zadanie 3 v1.
 
 Tło: https://cloud.google.com/certification/guides/cloud-architect/casestudy-mountkirkgames-rev2
 
@@ -251,6 +251,21 @@ vmZone="europe-west1-b"
 > gsutil rm -r gs://${bucketName}/
 
 > gsutil rm -r gs://images-pm-v2
+
+
+#### Zadanie 3 v2.
+
+Tło: https://szkolachmury.pl/google-cloud-platform-droga-architekta/tydzien-3-compute-engine/zadanie-domowe/
+
+# 1. Wybór odpowiedniej strategii migracji. 
+
+Odpowiednią strategię migracji w tym przypadku będzie metoda #Lift and shift#. Wynika to z wymagania uruchomienia rozwiązania bez potrzeby modyfikacji lub dostosowywania aplikacji. 
+
+
+
+
+
+
 
 
 
