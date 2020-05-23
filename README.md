@@ -198,10 +198,10 @@ Uwagi do rozwiązania:
 
 # 3. Firma wymaga, abyś przygotował demo końcowej architektury i zaprezentował je podczas umówionego spotkania w siedzibie firmy.
 
-Utworzenie VM z dostarczonego obrazu
+# Utworzenie VM z dostarczonego obrazu:
 
 # Utworzenie zmiennych
-bucketName="images-bp"
+bucketName="images-pm-v2"
 bucketLocation="europe-west3"
 imageName="mountkirk-games-image"
 vmName="mountkirk-games-vm"
@@ -210,17 +210,20 @@ vmZone="europe-west1-b"
 
 # Utworzenie bucketa dla obrazu
 gsutil mb -c STANDARD -l $bucketLocation gs://${bucketName}/
+gsutil mb -c STANDARD -l europe-west3 gs://images-pm-v2
 
 # Skopiowanie obrazu do własnego bucketa
 gsutil cp gs://mountkirk-games-image/mountkirk-games.vmdk gs://${bucketName}/mountkirk-games.vmdk
+gsutil cp gs://mountkirk-games-image/mountkirk-games.vmdk gs://images-pm-v2/mountkirk-games.vmdk
 
 # Import obrazu do własnego repozytorium
 gcloud compute images import $imageName --os=debian-9 --source-file=gs://${bucketName}/mountkirk-games.vmdk
+gcloud compute images import mountkirk-games-image --os=debian-9 --source-file=gs://images-pm-v2/mountkirk-games.vmdk
 
 # Utworzenie VM na podstawie obrazu
 gcloud compute instances create $vmName --machine-type=$vmType --zone=$vmZone --image=$imageName --tags=http-server
+gcloud compute instances create mountkirk-games-vm --machine-type=f1-micro --zone=europe-west1-b --image=mountkirk-games-image --tags=http-server
 
-gsutil mb -c STANDARD -l europe-west3  gs://images-pm
 
 
 
