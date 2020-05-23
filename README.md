@@ -281,6 +281,71 @@ Odpowiednią strategią migracji w tym przypadku będzie metoda Lift and shift. 
 • w celu sprostania wymaganiom płynnego dostępu do rozwiązania przez użytkowników końcowych obraz wzorcowy Compute Engine został powielony w różnych lokalizacjach geograficznych a zadaniem Load Balancera będzie przydzielanie użytkowników do najbliższej im lokacji. 
 Wszystkie powyższe rozwiązania są realizowane przy założeniu, że dane będą w trybie tylko do odczytu a użytkownicy końcowi nie będą ich modyfikowali. 
 
+# Zadanie 3 v3.
+
+Tło: https://szkolachmury.pl/google-cloud-platform-droga-architekta/tydzien-3-compute-engine/zadanie-domowe/
+Rozwiązanie: https://drive.google.com/drive/u/0/folders/1l_9q4rboyiovsg3qGyphASOp_bp1617P
+
+#### 1. Strategia migracji.
+
+Lift and shift
+
+Zleceniodawca wymaga, aby aplikacja pracowała w chmurze bez konieczności modyfikacji lub dostosowania aplikacji.
+
+#### 2. Proces migracji:
+
+a) Projekt:
+• Audyt środowiska klienta.
+• Mapowanie usług środowiska on-premis na usługi GCP.
+• Zaplanowanie migracji.
+• Zaplanowanie przełączenia z on-prem na cloud.
+
+b) Wykonanie migracji testowej wybranych usług.
+
+c) Wykonanie migracji środowiska:
+• Przygotowanie obrazów dysków aplikacji on-premis 
+• Przeniesienie obrazów do chmury 
+• Utworzenie odpowiednich usług compute przy wykorzystaniu obrazów dysków. 
+• Utworzenie dodatkowych usług chmurowych. 
+• Testy akceptacyjne. 
+• Synchronizacja i przeniesienie danych. 
+• Start systemu. 
+• Testy odbiorowe. 
+
+d) Monitorowanie i optymalizacja.
+
+#### 4. PoC. 
+
+Na potrzeby klienta przygotowano PoC obrazujący wysoką dostępność oraz niskie opóźnienia w dostępie do backendu gry na całym świecie. Na potrzeby PoC umieszczono testową maszynę w wybranych regionach. 
+
+a) Przygotowanie VM na podstawie dostarczonego obrazu: 
+
+- Utworzenie bucket "pm-week3" 
+
+> gsutil mb -c standard -l europe-west3 gs://pm-week3 
+
+Kopiowanie obrazu aplikacji do stworzonego bucket
+
+> gsutil cp gs://mountkirk-games-image/mountkirk-games.vmdk gs://pm-week3/ 
+
+Imprort obrazu do repozytorium obrazow projektu 
+
+> gcloud compute images import mountkirk-test01 \ 
+--os=debian-9 \ 
+--source-file=gs://pm-week3/mountkirk-games.vmdk 
+
+
+b) Deployment aplikacji w wybranych regionach na potrzeby PoC. 
+gcloud beta compute instances create vm-mountkirk-01 \ --zone=europe-west6-a --machine-type=n1-standard-1 \ --tags=http-server,https-server --image=mountkirk-test01 
+Kolejne maszyny wg schematu ze zmianą parametru „–zone“ c) Ustawienie firewall dla dostępu http i https. 
+Firewall domyślnie umożliwia dostęp http na podstawie tagu „http-server”. Na potrzeby transmisji szyfrowanej wymagana otwarcie portu, domyślnie dla tagu „https-server”. 
+gcloud compute firewall-rules create default-allow-https \ --direction=INGRESS \ --priority=1000 \ --network=default \ --action=ALLOW \ --rules=tcp:443 \ --source-ranges=0.0.0.0/0 \ --target-tags=https-server 
+d) Instalacja pozostałych usług. 
+5. Podsumowanie. 
+Po przeprowadzeniu PoC na próbce aplikacji okazało się, że zaproponowana metoda migracji Lift And Shift, może się nie sprawdzić. Aplikacja po deploymencie w chmurze wykazywała wysoką degenerację funkcjonalną. 
+
+
+
 
 
 
