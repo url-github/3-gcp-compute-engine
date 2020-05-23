@@ -256,25 +256,29 @@ vmZone="europe-west1-b"
 # Zadanie 3 v2.
 
 Tło: https://szkolachmury.pl/google-cloud-platform-droga-architekta/tydzien-3-compute-engine/zadanie-domowe/
+Rozwiązanie: https://drive.google.com/drive/u/0/folders/1l_9q4rboyiovsg3qGyphASOp_bp1617P
 
 #### 1. Wybór odpowiedniej strategii migracji. 
 
-Odpowiednią strategię migracji w tym przypadku będzie metoda Lift and shift. Wynika to z wymagania uruchomienia rozwiązania bez potrzeby modyfikacji lub dostosowywania aplikacji. 
+Odpowiednią strategią migracji w tym przypadku będzie metoda Lift and shift. Wynika to z wymagania uruchomienia rozwiązania bez potrzeby modyfikacji lub dostosowywania aplikacji. 
 
 #### 2. Plan przeprowadzenia migracji. 
+
 • wykonanie obrazu dysku z systemu on-premises w odpowiednim formacie pozwalającym na upload do GCP 
 • upload utworzonego obrazu na storage w chmurze GCP 
 • utworzenie Compute Engine w wybranych regionach/strefach z zaimportowanego obrazu dysku 
 
 #### 3. Demo końcowej architektury. 
 
-• w celu sprostania wymaganiom bezawaryjność zostały zastosowane dwa rozwiązania 
-o użycie dysków regionalnych w celu synchronizacji do innej strefy w tym samym regionie – pozwoli to na ciągłość działania w sytuacji awarii strefy na której aktualnie uruchomiony jest Compute Engine 
-o użycie dodatkowych regionów typu Passive, gdzie za pomocą cyklicznych snapshotów w razie awarii całego regionu typu Active będzie można uruchomić kopię podstawowego Compute Engine 
+• w celu sprostania wymaganiom bezawaryjność zostały zastosowane dwa rozwiązania:
 
-• w celu sprostania wymaganiom skalowalności obraz maszyny źródłowej został kilkukrotnie powielony w różnych regionach/strefach a za dzielenie ruchu w zależności od obciążania odpowiada Load Balancer 
+1. użycie dysków regionalnych w celu synchronizacji do innej strefy w tym samym regionie – pozwoli to na ciągłość działania w sytuacji awarii strefy na której aktualnie uruchomiony jest Compute Engine.
 
-• w celu sprostania wymaganiom płynnego dostępu do rozwiązania przez użytkowników końcowych obraz wzorcowy Compute Engine został powielony w różnych lokalizacjach geograficznych a zadaniem Load Balancera będzie przydzielanie użytkowników do najbliższej im lokacji 
+2. użycie dodatkowych regionów typu Passive, gdzie za pomocą cyklicznych snapshotów w razie awarii całego regionu typu Active będzie można uruchomić kopię podstawowego Compute Engine.
+
+• w celu sprostania wymaganiom skalowalności obraz maszyny źródłowej został kilkukrotnie powielony w różnych regionach/strefach a za dzielenie ruchu w zależności od obciążania odpowiada Load Balancer.
+
+• w celu sprostania wymaganiom płynnego dostępu do rozwiązania przez użytkowników końcowych obraz wzorcowy Compute Engine został powielony w różnych lokalizacjach geograficznych a zadaniem Load Balancera będzie przydzielanie użytkowników do najbliższej im lokacji. 
 Wszystkie powyższe rozwiązania są realizowane przy założeniu, że dane będą w trybie tylko do odczytu a użytkownicy końcowi nie będą ich modyfikowali. 
 
 
